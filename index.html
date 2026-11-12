@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nouman Khalid Portfolio</title>
+<meta name="description" content="Nouman Khalid, AI and blockchain engineer in Riyadh. Multi-agent AI platforms, Web3 products and automation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a hallway. Hero introduces the person, four painted doors lead to full-screen rooms of work, then a time dial and a sign-off. Dark by default; the switch in the bar turns the lights on. */
+:root{
+  color-scheme:dark;
+  --bg:#0B0B0B;
+  --wall:#14161B;
+  --ink:#F4F6FA;
+  --muted:#9BA4B4;
+  --line:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.05);
+  --ai:#4F8CFF;
+  --ai-2:#8B5CF6;
+  --chain:#12D6A0;
+  --gold:#E7B84B;
+  --card:#FFFFFF;
+  --card-ink:#0D1117;
+  --display:"Space Grotesk","Segoe UI",system-ui,sans-serif;
+  --body:"Inter","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+html.light .nav{background:rgba(238,241,246,.8)}
+html.light{
+  color-scheme:light;
+  --bg:#EEF1F6;
+  --wall:#E1E6EF;
+  --ink:#0D1117;
+  --muted:#566070;
+  --line:rgba(13,17,23,.14);
+  --glass:rgba(255,255,255,.7);
+  --card:#0D1117;
+  --card-ink:#F4F6FA;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .5s,color .5s}
+body.locked{overflow:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.02em;font-weight:600}
+h2{font-size:clamp(2rem,4.6vw,3.2rem)}
+p{margin:0}
+button{font:inherit;color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 max(24px,env(safe-area-inset-right)) 0 max(24px,env(safe-area-inset-left))}
+.band{padding:100px 0}
+.lead{color:var(--muted);max-width:60ch;margin-top:14px}
+.mono{font-family:var(--mono);font-size:.8rem}
+:focus-visible{outline:2px solid var(--ai);outline-offset:4px;border-radius:6px}
+
+/* bar */
+.nav{position:fixed;top:0;left:0;right:0;background:rgba(11,11,11,.8);z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:20px;height:64px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.08rem;text-decoration:none;margin-right:auto}
+.links{display:flex;gap:28px;align-items:center}
+.links a{text-decoration:none;color:var(--muted);font-size:.94rem;transition:color .2s}
+.links a:hover{color:var(--ink)}
+.lamp{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px;cursor:pointer;font-size:.84rem;color:var(--muted)}
+.lamp i{width:38px;height:22px;border-radius:999px;background:#2A2F3A;position:relative;display:block;transition:background .3s}
+.lamp i::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s}
+html.light .lamp i{background:var(--gold)}
+html.light .lamp i::after{transform:translateX(16px)}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;padding:0;position:relative}
+.burger span,.burger span::before,.burger span::after{content:"";position:absolute;left:11px;width:18px;height:2px;background:var(--ink);transition:transform .25s}
+.burger span{top:19px}.burger span::before{left:0;top:-6px}.burger span::after{left:0;top:6px}
+.burger[aria-expanded="true"] span{background:transparent}
+.burger[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* hero */
+.hero{padding:128px 0 0;position:relative;overflow:hidden;overflow:clip}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:end}
+.hero-txt{padding-bottom:84px}
+.hello{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:700}
+.iam{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.4rem);color:var(--muted);margin-top:8px}
+.flip-wrap{margin-top:18px;perspective:900px;display:inline-block;position:relative}
+.rings{position:absolute;top:-11px;left:22px;right:22px;display:flex;justify-content:space-between;z-index:2;pointer-events:none}
+.rings b{width:7px;height:22px;border-radius:5px;background:linear-gradient(#C9CED8,#7A8290);box-shadow:0 1px 2px rgba(0,0,0,.5)}
+.flip{max-width:100%;background:var(--card);color:var(--card-ink);font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,3.6vw,2.5rem);padding:22px 30px 18px;border-radius:14px;min-width:min(480px,82vw);box-shadow:0 8px 0 #9aa0aa,0 26px 50px rgba(0,0,0,.4);transform-origin:top center;transition:transform .32s ease-in;white-space:nowrap}
+.flip.out{transform:rotateX(-92deg)}
+.flip.in{transition:none;transform:rotateX(92deg)}
+.sum{color:var(--muted);max-width:50ch;margin-top:34px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.btn{font-family:var(--display);font-weight:600;font-size:1rem;text-decoration:none;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--glass);cursor:pointer;color:var(--ink);transition:transform .2s,box-shadow .2s;display:inline-block}
+.btn:hover{transform:translateY(-3px)}
+.btn.primary{background:linear-gradient(120deg,var(--ai),var(--ai-2));border-color:transparent;color:#fff;box-shadow:0 10px 30px rgba(79,140,255,.35)}
+.seat{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:420px}
+.seat::before{content:"";position:absolute;left:50%;bottom:8%;width:86%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--ai-2) 55%,transparent),color-mix(in srgb,var(--ai) 22%,transparent) 55%,transparent)}
+.seat{padding-bottom:64px}
+.ledge{height:14px;background:var(--wall);border-top:1px solid var(--line)}
+
+/* hallway */
+.hall{background:var(--wall);padding:96px 0 0;transition:background .5s}
+.wide{max-width:1560px;margin:0 auto;padding:0 24px}
+.doors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px;margin-top:56px;align-items:start}
+.door{background:none;border:0;padding:0;cursor:pointer;text-align:center;display:block;width:100%;-webkit-tap-highlight-color:transparent}
+.sign{display:inline-block;background:linear-gradient(#F4D98B,#C9A040);color:#2B2208;font-family:var(--mono);font-size:.8rem;font-weight:500;padding:7px 14px;border-radius:5px;box-shadow:0 3px 6px rgba(0,0,0,.4);margin-bottom:18px;transform-origin:50% -10px;animation:sway 4.5s ease-in-out infinite;animation-delay:var(--sd,0s)}
+@keyframes sway{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.2deg)}}
+.frame{display:block;position:relative;aspect-ratio:1/1.06;border-radius:50% 50% 0 0/36% 36% 0 0;background:#050608;box-shadow:0 0 0 10px #1c2230,inset 0 0 70px #000;perspective:1500px;transition:box-shadow .5s}
+.frame{box-shadow:0 0 0 10px color-mix(in srgb,var(--paint) 42%,#111),inset 0 0 70px #000}
+.frame::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse at 50% 90%,var(--paint),transparent 70%);opacity:.8;animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.45}}
+.peek{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.4vw,2.2rem);color:#fff;letter-spacing:-.02em}
+.spill{position:absolute;left:6%;right:6%;bottom:-26px;height:34px;border-radius:50%;background:var(--paint);filter:blur(18px);opacity:.5;animation:breathe 3.6s ease-in-out infinite}
+.leaf{position:absolute;top:0;bottom:0;width:50%;background:var(--paint);transition:transform .8s cubic-bezier(.2,.75,.2,1);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
+.leaf.l{left:0;border-radius:100% 0 0 0/36% 0 0 0;transform-origin:left center;background:linear-gradient(100deg,rgba(0,0,0,.28),transparent 60%),var(--paint)}
+.leaf.r{right:0;border-radius:0 100% 0 0/0 36% 0 0;transform-origin:right center;background:linear-gradient(260deg,rgba(255,255,255,.2),transparent 60%),var(--paint)}
+.leaf::before{content:"";position:absolute;top:30%;height:26%;border-radius:8px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.2),inset 0 6px 14px rgba(0,0,0,.2)}
+.leaf::after{content:"";position:absolute;bottom:8%;height:26%;border-radius:8px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.2),inset 0 6px 14px rgba(0,0,0,.2)}
+.leaf.l::before,.leaf.l::after{left:18%;right:12%}
+.leaf.r::before,.leaf.r::after{left:12%;right:18%}
+.knob{position:absolute;top:60%;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF1B8,#B8891E);box-shadow:0 2px 5px rgba(0,0,0,.5);z-index:1}
+.leaf.l .knob{right:5%}.leaf.r .knob{left:5%}
+@media (hover:hover){
+  .door:hover .leaf.l{transform:rotateY(-36deg)}
+  .door:hover .leaf.r{transform:rotateY(36deg)}
+  .door:hover .frame{box-shadow:0 0 0 10px var(--paint),0 0 70px -6px var(--paint),inset 0 0 70px #000}
+}
+.door:focus-visible .leaf.l{transform:rotateY(-36deg)}
+.door:focus-visible .leaf.r{transform:rotateY(36deg)}
+.door.opening .leaf.l{transform:rotateY(-104deg)}
+.door.opening .leaf.r{transform:rotateY(104deg)}
+.door h3{font-size:1.3rem;margin-top:40px;display:block}
+.door small{display:block;color:var(--muted);font-size:.92rem;margin-top:6px;line-height:1.45}
+.doors-foot{padding:90px 0 0}
+.door[data-k="ai"]{--paint:#3B74E0}
+.door[data-k="web3"]{--paint:#12A67E;--sd:-1.1s}
+.door[data-k="automation"]{--paint:#D9A43A;--sd:-2.3s}
+.door[data-k="fullstack"]{--paint:#7A52DB;--sd:-3.2s}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+.arch-photo{border-radius:999px 999px 20px 20px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 0 0 8px var(--wall),0 0 0 9px var(--line),0 40px 80px -30px var(--ai-2);position:relative}
+.arch-photo img{width:100%;height:112%;object-fit:cover;object-position:50% 20%;will-change:transform}
+.about p{color:var(--muted);max-width:56ch;margin-top:18px}
+.about p:first-child{margin-top:0}
+.about-grid{align-items:start}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+.stats div{border:1px solid var(--line);border-radius:16px;padding:18px 16px;background:var(--glass)}
+.stats strong{font-family:var(--display);font-size:clamp(1.7rem,3vw,2.3rem);font-weight:700;display:block;font-variant-numeric:tabular-nums;line-height:1.1}
+.stats span{color:var(--muted);font-size:.84rem;line-height:1.35;display:block;margin-top:6px}
+
+/* motion */
+.bar{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--ai),var(--ai-2),var(--chain),var(--gold));z-index:90}
+.spot{position:fixed;top:0;left:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(closest-side,rgba(79,140,255,.13),transparent);pointer-events:none;z-index:1;opacity:0;transition:opacity .4s}
+.js .rv{opacity:0;transform:translateY(34px) scale(.985);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.js .rv.on{opacity:1;transform:none}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(40px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@keyframes orb{50%{transform:translateX(-50%) scale(1.08);opacity:.8}}
+@keyframes drift{to{background-position:200% 50%}}
+.hero-txt > *{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.hero-txt > *:nth-child(2){animation-delay:.12s}
+.hero-txt > *:nth-child(3){animation-delay:.24s}
+.hero-txt > *:nth-child(4){animation-delay:.38s}
+.hero-txt > *:nth-child(5){animation-delay:.5s}
+.seat .bobber{animation:pop 1s .2s cubic-bezier(.2,.7,.2,1) both;position:relative;width:min(380px,78%)}
+.seat .bobber .arch-photo{animation:bob 6s ease-in-out 1.2s infinite}
+.seat::before{animation:orb 7s ease-in-out infinite}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.7}
+.hero .wrap{position:relative}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover::after{left:130%}
+.room.show #room-body > *{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.45s}
+.room.show #room-body > *:nth-child(2){animation-delay:.53s}
+.room.show #room-body > *:nth-child(3){animation-delay:.61s}
+.room.show #room-body > *:nth-child(4){animation-delay:.72s}
+.room.show #room-body > *:nth-child(n+5){animation-delay:.84s}
+.entry.swap > *{animation:rise .5s both}
+.year{background:linear-gradient(100deg,var(--ink) 30%,var(--era,var(--ai)) 50%,var(--ink) 70%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:drift 6s linear infinite}
+.contact{background-size:220% 220%;animation:drift 14s ease-in-out infinite alternate}
+.work,.minis article,.stats div,.creds section{transition:transform .35s,border-color .35s,box-shadow .35s}
+@media (hover:hover){
+  .work:hover,.minis article:hover,.stats div:hover,.creds section:hover{transform:translateY(-6px);border-color:var(--paint,var(--ai));box-shadow:0 24px 50px -30px var(--paint,var(--ai))}
+}
+
+/* room */
+.room{position:fixed;top:0;left:0;right:0;bottom:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;z-index:80;background:var(--bg);overflow-y:auto;clip-path:circle(0 at var(--x,50%) var(--y,50%));visibility:hidden;transition:clip-path .75s cubic-bezier(.6,0,.2,1),visibility 0s .75s}
+.room.show{clip-path:circle(150% at var(--x,50%) var(--y,50%));visibility:visible;transition:clip-path .75s cubic-bezier(.6,0,.2,1)}
+.room-in{max-width:1140px;margin:0 auto;padding:28px 24px 90px;position:relative}
+.room-glow{position:absolute;top:-180px;right:-160px;width:560px;height:560px;border-radius:50%;background:var(--paint);filter:blur(130px);opacity:.3;pointer-events:none}
+.back{position:sticky;top:18px;z-index:2}
+.room h2{margin-top:44px;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:700}
+.room .lead{font-size:1.08rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0;padding:0;list-style:none}
+.chips li{font-family:var(--mono);font-size:.76rem;border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:var(--glass)}
+.work{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:24px;background:var(--glass);overflow:hidden;margin-top:26px}
+.work:first-of-type{margin-top:44px}
+.work-txt{padding:34px}
+.work h3{font-size:1.8rem}
+.work p{color:var(--muted);margin-top:12px;max-width:52ch}
+.work .go{display:inline-block;margin-top:20px;color:var(--paint);text-underline-offset:4px;font-weight:500}
+.work .note{display:inline-block;margin-top:20px;color:var(--muted);font-size:.92rem}
+.fig{background:color-mix(in srgb,var(--bg) 78%,var(--paint) 6%);border-left:1px solid var(--line);padding:28px;display:flex;flex-direction:column;justify-content:center}
+.fig h4{font-family:var(--mono);font-weight:400;font-size:.78rem;color:var(--muted);margin-bottom:14px;letter-spacing:0}
+.flow{display:grid;gap:20px}
+.step{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:var(--glass);font-size:.92rem;position:relative}
+.step b{font-family:var(--display);font-weight:600;display:block}
+.step span{color:var(--muted);font-size:.84rem}
+.step.hot{border-color:var(--paint);box-shadow:0 0 24px color-mix(in srgb,var(--paint) 30%,transparent)}
+.step:not(:last-child)::after{content:"";position:absolute;left:26px;bottom:-21px;width:2px;height:20px;background:linear-gradient(var(--paint),transparent)}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mods span{font-family:var(--mono);font-size:.74rem;border:1px solid var(--line);border-radius:8px;padding:9px 6px;text-align:center;background:var(--glass)}
+.mods span.tok{border-color:var(--paint);color:var(--paint)}
+.minis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.minis article{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--glass)}
+.minis h4{font-size:1.08rem}
+.minis p{color:var(--muted);font-size:.92rem;margin-top:8px}
+.minis a{text-underline-offset:4px}
+
+/* time */
+.time{position:relative;overflow:hidden;overflow:clip}
+.time-glow{position:absolute;left:-10%;top:10%;width:60%;aspect-ratio:1;border-radius:50%;background:var(--era,var(--ai));filter:blur(150px);opacity:.28;transition:background .6s;pointer-events:none}
+.dial{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;margin-top:40px;align-items:start;position:relative}
+.year{font-family:var(--display);font-weight:700;font-size:clamp(5rem,15vw,11rem);line-height:.9;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.span-l{font-family:var(--mono);font-size:.86rem;color:var(--muted);margin-top:14px}
+.eras{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.era{border:1px solid var(--line);background:var(--glass);border-radius:999px;padding:8px 16px;cursor:pointer;font-family:var(--mono);font-size:.82rem}
+.era[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.entry{border:1px solid var(--line);border-radius:22px;padding:32px;background:var(--glass);backdrop-filter:blur(12px);min-height:300px}
+.entry h3{font-size:1.6rem}
+.entry .where{color:var(--muted);margin-top:8px}
+.entry ul{margin:18px 0 0;padding-left:20px;display:grid;gap:9px}
+.entry .btn{margin-top:26px}
+
+/* stack */
+.marq{margin-top:38px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.marq + .marq{margin-top:14px}
+.track{display:flex;gap:14px;width:max-content;animation:slide 48s linear infinite}
+.marq.rev .track{animation-direction:reverse;animation-duration:56s}
+.marq:hover .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.badge{font-family:var(--mono);font-size:.9rem;padding:12px 20px;border-radius:12px;border:1px solid var(--line);background:var(--glass);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.badge::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c,var(--ai))}
+.creds{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;margin-top:56px}
+.creds section{border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--glass)}
+.creds h3{font-size:1.2rem}
+.creds ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;font-size:.95rem}
+.creds li span{display:block;color:var(--muted);font-size:.86rem}
+
+/* sign-off */
+.contact{border:1px solid var(--line);border-radius:28px;padding:64px 48px;background:linear-gradient(140deg,color-mix(in srgb,var(--ai) 22%,transparent),color-mix(in srgb,var(--ai-2) 10%,transparent) 40%,color-mix(in srgb,var(--chain) 16%,transparent))}
+.contact h2{max-width:16ch;font-size:clamp(2.2rem,5.4vw,3.8rem)}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:32px}
+.mail a{font-family:var(--mono);font-size:clamp(1rem,2.4vw,1.3rem);text-underline-offset:6px;word-break:break-all}
+.socials{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
+.phone{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:22px}
+.phone .mono{font-size:clamp(1rem,2.4vw,1.3rem)}
+.phone .btn{padding:9px 18px;font-size:.9rem}
+.btn.wa{background:#1FA855;border-color:transparent;color:#fff}
+footer{padding:36px 0 56px;color:var(--muted);font-size:.88rem;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+@media (max-width:1180px){
+  .doors{grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 34px}
+  .frame{aspect-ratio:1/.92}
+}
+@media (max-width:940px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-txt{padding-bottom:20px}
+  .seat{min-height:0}
+  .seat .bobber{width:min(340px,78%)}
+  .work{grid-template-columns:1fr}
+  .fig{border-left:0;border-top:1px solid var(--line)}
+  .minis{grid-template-columns:1fr 1fr}
+  .dial{grid-template-columns:1fr;gap:28px}
+  .creds{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  .seat{padding-bottom:44px}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .band{padding:72px 0}
+  .burger{display:block}
+  .links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 24px 18px;display:none}
+  .links.show{display:flex}
+  .links a{padding:14px 0;border-bottom:1px solid var(--line);font-size:1.05rem}
+  .lamp span{display:none}
+  .lamp{padding:6px}
+  .flip{white-space:normal;min-width:0;width:100%}
+  .flip-wrap{display:block}
+  .minis{grid-template-columns:1fr}
+  .work-txt{padding:24px}
+  .fig{padding:22px}
+  .contact{padding:44px 24px}
+  .entry{padding:24px;min-height:0}
+  .spot{display:none}
+}
+@media (max-width:560px){
+  .doors{grid-template-columns:1fr;gap:52px}
+  .frame{aspect-ratio:1/.82}
+  .mods{grid-template-columns:1fr 1fr}
+  .cta .btn{flex:1 1 auto;text-align:center}
+  .hall{padding-top:72px}
+}
+@media (max-width:360px){
+  .wrap,.wide,.room-in{padding-left:16px;padding-right:16px}
+  .stats{grid-template-columns:1fr}
+}
+@media (min-width:1800px){
+  body{font-size:18px}
+  .wrap{max-width:1280px}
+  .room-in{max-width:1280px}
+}
+@media (max-height:520px) and (orientation:landscape){
+  .hero{padding-top:92px}
+  .seat .bobber{width:200px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .track{flex-wrap:wrap;width:auto;justify-content:center}
+  .track [aria-hidden]{display:none}
+  .marq{-webkit-mask-image:none;mask-image:none}
+  .year{color:var(--ink);background:none}
+  .spot,.hero canvas{display:none}
+}
+@media print{.nav,.bar,.spot,.room{display:none}}
+</style>
+</head>
+<body>
+
+<div class="bar" id="bar"></div>
+<div class="spot" id="spot"></div>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">Nouman Khalid</a>
+    <nav class="links" id="menu">
+      <a href="#about">About</a>
+      <a href="#doors">Work</a>
+      <a href="#journey">Journey</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="lamp" id="lamp" type="button" aria-pressed="false" aria-label="Turn the lights on"><i></i><span>Lights</span></button>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-txt">
+      <h1 class="hello">Hi, I'm Nouman.</h1>
+      <div class="iam">I am a</div>
+      <div class="flip-wrap">
+        <div class="rings" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+        <div class="flip" id="flip">AI Systems Engineer</div>
+      </div>
+      <p class="sum">I build AI agents and Web3 platforms in Riyadh. Four years of shipping, from Solidity contracts to a platform where one AI Director runs 28 specialist divisions.</p>
+      <div class="cta">
+        <a class="btn primary" href="#doors">Explore projects</a>
+        <a class="btn" href="#contact">Let's connect</a>
+      </div>
+    </div>
+    <div class="seat"><div class="bobber" id="bobber"><div class="arch-photo"><img id="about-img" src="about.webp" alt="Nouman Khalid in a black suit and sunglasses" width="864" height="920"></div></div></div>
+  </div>
+  <div class="ledge"></div>
+</section>
+
+<section class="band about" id="about">
+  <div class="wrap about-grid">
+    <h2>The engineer behind the doors</h2>
+    <div>
+      <p>I studied computer system engineering at UET Peshawar and wrote my first smart contracts in 2022. I went on to lead and mentor trainees on Ethereum projects, then moved to Saudi Arabia and into AI agents and automation.</p>
+      <p>Today I design the system, build it and keep it running, whether that is a multi-agent platform, a token ecosystem or the servers under both.</p>
+      <div class="stats">
+        <div><strong data-to="28">28</strong><span>AI divisions under one Director</span></div>
+        <div><strong data-to="40" data-suf="+">40+</strong><span>modules in WPD Chain</span></div>
+        <div><strong data-to="3">3</strong><span>live token networks</span></div>
+        <div><strong data-to="4" data-suf="+">4+</strong><span>years building</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hall" id="doors">
+  <div class="wrap">
+    <h2>Four doors. Pick one.</h2>
+    <p class="lead">Each door opens onto one kind of work, with the projects I built inside.</p>
+  </div>
+  <div class="wide">
+
+    <div class="doors">
+      <button class="door" data-k="ai" type="button">
+        <span class="sign">AI Systems</span>
+        <span class="frame"><span class="peek">Enter</span><span class="leaf l"><i class="knob"></i></span><span class="leaf r"><i class="knob"></i></span><span class="spill"></span></span>
+        <h3>AI systems</h3><small>Multi-agent platforms, RAG, LLM integration</small>
+      </button>
+      <button class="door" data-k="web3" type="button">
+        <span class="sign">Blockchain</span>
+        <span class="frame"><span class="peek">Enter</span><span class="leaf l"><i class="knob"></i></span><span class="leaf r"><i class="knob"></i></span><span class="spill"></span></span>
+        <h3>Blockchain &amp; Web3</h3><small>Smart contracts, token platforms, trading</small>
+      </button>
+      <button class="door" data-k="automation" type="button">
+        <span class="sign">Automation</span>
+        <span class="frame"><span class="peek">Enter</span><span class="leaf l"><i class="knob"></i></span><span class="leaf r"><i class="knob"></i></span><span class="spill"></span></span>
+        <h3>Automation &amp; ERP</h3><small>n8n workflows, Odoo 18, WhatsApp Business</small>
+      </button>
+      <button class="door" data-k="fullstack" type="button">
+        <span class="sign">Full-Stack</span>
+        <span class="frame"><span class="peek">Enter</span><span class="leaf l"><i class="knob"></i></span><span class="leaf r"><i class="knob"></i></span><span class="spill"></span></span>
+        <h3>Full-stack &amp; servers</h3><small>Next.js apps, mobile, production infrastructure</small>
+      </button>
+    </div>
+  </div>
+  <div class="doors-foot"></div>
+</section>
+
+<section class="band time" id="journey">
+  <div class="time-glow" id="glow"></div>
+  <div class="wrap" style="position:relative">
+    <h2>Let's go back in time.</h2>
+    <div class="dial">
+      <div>
+        <div class="year" id="year">2026</div>
+        <div class="span-l" id="span">Feb 2026 to now</div>
+        <div class="eras" id="eras" role="group" aria-label="Choose a period"></div>
+      </div>
+      <div class="entry" aria-live="polite">
+        <h3 id="e-title"></h3>
+        <p class="where" id="e-where"></p>
+        <ul id="e-list"></ul>
+        <button class="btn" id="older" type="button">Go further back</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="stack" style="padding-top:40px">
+  <div class="wrap">
+    <h2>Tools I have shipped with</h2>
+  </div>
+  <div class="marq"><div class="track" id="row1"></div></div>
+  <div class="marq rev"><div class="track" id="row2"></div></div>
+  <div class="wrap">
+    <div class="creds">
+      <section>
+        <h3>Certifications</h3>
+        <ul>
+          <li>Advanced Prompt Engineering for Everyone<span>Vanderbilt University, Nov 2025</span></li>
+          <li>AI For Everyone<span>DeepLearning.AI, Nov 2025</span></li>
+          <li>Generative AI and Blockchain<span>INSEAD, Jul 2025</span></li>
+          <li>Advanced Smart Contract Development<span>EDUCBA, Jul 2025</span></li>
+          <li>The Blockchain<span>University of California, Irvine, Jun 2025</span></li>
+          <li>Blockchain Security<span>Infosec, Sep 2024</span></li>
+          <li>Generative AI Engineering; Generative AI and LLMs<span>IBM</span></li>
+        </ul>
+      </section>
+      <section>
+        <h3>Education</h3>
+        <ul>
+          <li>BSc, Computer System Engineering<span>University of Engineering and Technology (UET), Peshawar</span></li>
+          <li>Diploma in Information Technology<span>Khyber Pakhtunkhwa Board of Technical Education, Peshawar</span></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contact" style="padding:40px 0 0">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Got a protocol or AI system to build? Let's bring it to life.</h2>
+      <p class="lead">I'm in Riyadh and available now, on site in Saudi Arabia or remote.</p>
+      <div class="mail">
+        <a href="mailto:noumankhalid0143@gmail.com">noumankhalid0143@gmail.com</a>
+        <button class="btn" id="copy" type="button" style="padding:9px 18px;font-size:.9rem">Copy email</button>
+      </div>
+      <div class="phone">
+        <span class="mono">+966 53 581 4178</span>
+        <a class="btn" href="tel:+966535814178">Call me</a>
+        <a class="btn wa" href="https://wa.me/966535814178" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+      <div class="socials">
+        <a class="btn" href="https://www.linkedin.com/in/nouman-khalid-670737324" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/NomiiKhattak" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <footer><span>© 2026 Nouman Khalid</span><span class="mono">Riyadh, Saudi Arabia</span></footer>
+  </div>
+</section>
+</main>
+
+<div class="room" id="room" role="dialog" aria-modal="true" aria-labelledby="room-title" tabindex="-1">
+  <div class="room-in">
+    <div class="room-glow"></div>
+    <button class="btn back" id="back" type="button">Back to the doors</button>
+    <div id="room-body"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* lights */
+  var lamp = $('lamp');
+  function lights(on){
+    document.documentElement.classList.toggle('light', on);
+    lamp.setAttribute('aria-pressed', on);
+    lamp.setAttribute('aria-label', on ? 'Turn the lights off' : 'Turn the lights on');
+  }
+  try{ if(localStorage.getItem('nk-lights') === 'on') lights(true); }catch(e){}
+  lamp.addEventListener('click', function(){
+    var on = !document.documentElement.classList.contains('light');
+    lights(on);
+    try{ localStorage.setItem('nk-lights', on ? 'on' : 'off'); }catch(e){}
+  });
+
+  /* menu */
+  var burger = $('burger'), menu = $('menu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('show');
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  menu.addEventListener('click', function(e){ if(e.target.tagName === 'A'){ menu.classList.remove('show'); burger.setAttribute('aria-expanded','false'); } });
+
+  /* flip card */
+  var roles = ['AI Systems Engineer','Multi-Agent Architect','Smart Contract Developer','Web3 Full-Stack Developer','Automation Specialist'];
+  var flip = $('flip'), ri = 0;
+  if(!reduce){
+    setInterval(function(){
+      flip.classList.add('out');
+      setTimeout(function(){
+        ri = (ri + 1) % roles.length; flip.textContent = roles[ri];
+        flip.classList.remove('out'); flip.classList.add('in');
+        void flip.offsetWidth; flip.classList.remove('in');
+      }, 330);
+    }, 2600);
+  }
+
+  /* rooms */
+  function flow(title, steps, hot){
+    return '<div class="fig"><h4>' + title + '</h4><div class="flow">' + steps.map(function(s, i){
+      return '<div class="step' + (i === hot ? ' hot' : '') + '"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>';
+    }).join('') + '</div></div>';
+  }
+  function work(name, text, link, fig){
+    return '<article class="work"><div class="work-txt"><h3>' + name + '</h3><p>' + text + '</p>' + link + '</div>' + fig + '</article>';
+  }
+  function go(url, label){ return '<a class="go" href="' + url + '" target="_blank" rel="noopener">' + label + '</a>'; }
+  function note(t){ return '<span class="note">' + t + '</span>'; }
+  function minis(list){
+    return '<div class="minis">' + list.map(function(m){ return '<article><h4>' + m[0] + '</h4><p>' + m[1] + '</p></article>'; }).join('') + '</div>';
+  }
+  function chips(list){ return '<ul class="chips">' + list.map(function(c){ return '<li>' + c + '</li>'; }).join('') + '</ul>'; }
+
+  var rooms = {
+    ai: {
+      paint:'#4F8CFF', title:'AI systems',
+      lead:'Agents that do real work, with a person approving what goes out.',
+      chips:['Multi-agent orchestration','RAG','OpenAI','Anthropic Claude','Google Gemini','ChromaDB','FAISS','Prompt engineering'],
+      body:
+        work('SAMYCNCO GLOBAL AI','A business-development platform run by agents. An AI Director hands work to 28 specialist divisions, scores each opportunity, keeps the CRM current, and waits for a person to approve before anything is sent.',
+          go('https://peaceism.ai','Visit peaceism.ai'),
+          flow('How a lead moves through it',[['AI Director','Reads the goal and assigns the work'],['28 specialist divisions','Each one handles its own part of the job'],['Opportunity engine + CRM','Scores and records every lead'],['Human approval','A person signs off, then it sends']],0)) +
+        work('Production RAG chatbot','A chatbot that answers from company documents. It splits documents into chunks, embeds them with Gemini, searches ChromaDB and FAISS, and scores how relevant each result is before answering.',
+          note('Runs in production at PEACEISM'),
+          flow('How a question gets answered',[['Documents','Chunked and embedded with Gemini'],['Vector search','ChromaDB and FAISS'],['Relevance scoring','Weak matches are dropped'],['Answer','Grounded in what was found']],1)) +
+        minis([['YouTube Automation Agent','A self-built agent that writes the script, generates the video and uploads it.'],['Advisor, signal and auto-invest agents','AI assistants on top of the WPD Chain platform for token analytics and decisions.'],['AIMP','An AI management and analytics platform built with Streamlit and Python.']])
+    },
+    web3: {
+      paint:'#12D6A0', title:'Blockchain & Web3',
+      lead:'Smart contracts, a token ecosystem on a live chain, and the trading desk behind it.',
+      chips:['Solidity','ERC-20 / 721 / 1155','Hardhat','Ethers.js','Tendermint','Solana Web3.js','Jupiter','Raydium','MetaMask','Phantom'],
+      body:
+        work('WPD Chain','The hub for the Peaceism ecosystem on a live Tendermint L1. More than 40 modules and 14 service pillars in one Next.js app, with Solidity contracts wired in through Ethers.js.',
+          go('https://wpdchain-app.vercel.app','Open the live app'),
+          '<div class="fig"><h4>What is inside</h4><div class="mods"><span class="tok">WPD</span><span class="tok">PCSM</span><span class="tok">LEEA</span><span>Wallet</span><span>Governance</span><span>Exchange</span><span>Explorer</span><span>Analytics</span><span>Banking</span><span>Payments</span><span>Investment</span><span>Tokenisation</span></div></div>') +
+        work('PCSM Trade Nexus','A trading and liquidity console for three live tokens. It pulls prices from OKX and DexScreener, scores liquidity health and token risk, and trades on Solana through bot wallets kept apart from personal ones.',
+          note('Private. Demo on request.'),
+          flow('From market data to a trade',[['Market feeds','OKX and DexScreener, with a fallback source'],['Risk and liquidity scoring','Central limits, every action logged'],['Bot wallets','Jupiter and Raydium on Solana; funding across Ethereum and BSC']],1)) +
+        minis([['Digital Riyal prototype','A central bank digital currency simulation for Saudi Riyal transactions.'],['Murabaha finance contracts','Sharia-compliant Murabaha financing automated in smart contracts.'],['RWA tokenization','Fractional ownership of real-world assets on Ethereum.'],['<a href="https://github.com/NomiiKhattak" target="_blank" rel="noopener">KSA Property Blockchain</a>','Property registration and transfer for the Saudi market. On GitHub.'],['Gaming tokens','ERC-20, 721 and 1155 contracts for in-game economies.'],['Hospital records and voting DApps','Ethereum apps for patient records and anonymous voting.']])
+    },
+    automation: {
+      paint:'#E7B84B', title:'Automation & ERP',
+      lead:'The plumbing that saves a sales team hours and keeps three companies on one system.',
+      chips:['n8n','Odoo 18','WhatsApp Business','Role-based access','Audit logging','API integration'],
+      body:
+        work('Sales automation at Smartbox Factory','n8n workflows that catch every lead from WhatsApp and email, put it in one tracker, remind the salesperson to follow up and flag the follow-ups that were missed.',
+          note('Dammam, 2025'),
+          flow('What happens to a new lead',[['WhatsApp and email','Leads are captured automatically'],['Central sales tracker','One list for the whole team'],['Follow-up reminders','Missed ones are flagged'],['Daily reports','A summary per salesperson and one for management']],1)) +
+        work('SAMYCNCO Unified ERP Portal','One sign-in for the group\'s Odoo 18 systems: Foods, Biooti HVAC &amp; Steel, and Central Administration. It works in Arabic, English and Chinese, and each role sees only what it should.',
+          go('https://odoo.sacnco.com','Open the portal'),
+          '<div class="fig"><h4>One door, three companies</h4><div class="flow"><div class="step hot"><b>Single sign-in</b><span>Role-based access</span></div><div class="mods"><span>Foods</span><span>Biooti HVAC &amp; Steel</span><span>Central Admin</span></div></div></div>') +
+        minis([['WhatsApp Business','Set up for three business units.'],['Technical reports','Status reports and roadmaps written for management.'],['Third-party APIs','OKX and DexScreener feeds wired into internal tools.']])
+    },
+    fullstack: {
+      paint:'#8B5CF6', title:'Full-stack & servers',
+      lead:'The apps people touch, and the servers that keep them running.',
+      chips:['Next.js 14','React','TypeScript','Tailwind CSS','Zustand','Python','Node.js','Supabase','PostgreSQL','Docker','Linux VPS','Vercel'],
+      body:
+        work('Production server consolidation','I lead the move of the group\'s production projects onto one well-ordered server. Each project runs in isolation, with backups and a rollback plan before anything changes.',
+          note('PEACEISM, in progress'),
+          flow('How a project is moved',[['Audit','What runs where, and who owns it'],['Isolate','Each project in its own space'],['Back up','A tested copy before every change'],['Roll back','A way out if something breaks']],1)) +
+        minis([['SCO Mobile','The group\'s iOS and Android app. I own its development.'],['WMIEC Smart Events','An event registration platform.'],['WPD Chain front end','40+ modules in Next.js 14, TypeScript, Tailwind and Supabase.']])
+    }
+  };
+
+  var room = $('room'), body = $('room-body'), lastDoor = null, current = null;
+  function openRoom(k, door){
+    var r = rooms[k]; if(!r) return;
+    current = k; lastDoor = door || document.querySelector('.door[data-k="' + k + '"]');
+    var rect = lastDoor.getBoundingClientRect();
+    room.style.setProperty('--x', (rect.left + rect.width/2) + 'px');
+    var fr = lastDoor.querySelector('.frame').getBoundingClientRect();
+    room.style.setProperty('--y', (fr.top + fr.height*0.55) + 'px');
+    room.style.setProperty('--paint', r.paint);
+    body.innerHTML = '<h2 id="room-title">' + r.title + '</h2><p class="lead">' + r.lead + '</p>' + chips(r.chips) + r.body;
+    room.scrollTop = 0;
+    var show = function(){ room.classList.add('show'); document.body.classList.add('locked'); room.focus({preventScroll:true}); };
+    if(door && !reduce){ door.classList.add('opening'); setTimeout(show, 520); } else show();
+    if(location.hash !== '#' + k){ try{ history.replaceState(null, '', '#' + k); }catch(e){} }
+  }
+  function closeRoom(){
+    if(!current) return;
+    room.classList.remove('show'); document.body.classList.remove('locked');
+    document.querySelectorAll('.door.opening').forEach(function(d){ d.classList.remove('opening'); });
+    current = null;
+    try{ history.replaceState(null, '', '#doors'); }catch(e){}
+    if(lastDoor) lastDoor.focus({preventScroll:true});
+  }
+  document.querySelectorAll('.door').forEach(function(d){
+    d.setAttribute('aria-label', 'Open the ' + d.querySelector('h3').textContent + ' door');
+    d.addEventListener('click', function(){ openRoom(d.dataset.k, d); });
+  });
+  $('back').addEventListener('click', closeRoom);
+  addEventListener('keydown', function(e){ if(e.key === 'Escape') closeRoom(); });
+  function route(){ var k = location.hash.slice(1); if(rooms[k] && k !== current) openRoom(k); }
+  addEventListener('hashchange', route); route();
+
+  /* time dial */
+  var eras = [
+    { y:'2026', tag:'2026', span:'Feb 2026 to now', col:'var(--ai)', title:'AI Systems & Automation Specialist', where:'PEACEISM (Dongguan SACNCO Yuhong Investment), Riyadh',
+      list:['Designed and delivered SAMYCNCO GLOBAL AI and WPD Chain.','Built the production RAG chatbot and PCSM Trade Nexus.','Run the group\'s multi-company Odoo 18 ERP and lead its server consolidation.','Own development of the SCO Mobile app for iOS and Android.'] },
+    { y:'2025', tag:'2025', span:'Jan 2025 to Dec 2025', col:'var(--ai-2)', title:'AI Engineer & Automation Specialist', where:'Smartbox Factory, Dammam',
+      list:['Built n8n workflows that pull sales leads from WhatsApp and email into one tracker.','Automated follow-up reminders and flagged the ones the team missed.','Sent each salesperson a daily task summary and management a daily report.'] },
+    { y:'2024', tag:'2022–24', span:'Aug 2022 to Dec 2024', col:'var(--chain)', title:'Blockchain / AI Developer & Mentor', where:'AptechSoft, Pakistan',
+      list:['Led and mentored trainees on real Ethereum projects.','Designed, built and deployed smart contracts and full DApps.','Wrote training content and visual explainers.'] },
+    { y:'2022', tag:'2022', span:'Jan 2022 to Jul 2022', col:'var(--gold)', title:'Blockchain Intern', where:'AptechSoft, Pakistan',
+      list:['Learned smart contract design and Ethereum fundamentals.','Helped build and deploy DApps.'] }
+  ];
+  var ei = 0, eraBox = $('eras'), older = $('older'), yearEl = $('year'), spin = null;
+  eras.forEach(function(e, i){
+    var b = document.createElement('button'); b.className = 'era'; b.type = 'button'; b.textContent = e.tag;
+    b.addEventListener('click', function(){ setEra(i); }); eraBox.appendChild(b);
+  });
+  function setEra(i){
+    var from = +eras[ei].y, e = eras[i]; ei = i;
+    $('span').textContent = e.span; $('e-title').textContent = e.title; $('e-where').textContent = e.where;
+    $('e-list').innerHTML = e.list.map(function(t){ return '<li>' + t + '</li>'; }).join('');
+    $('glow').style.setProperty('--era', e.col); yearEl.style.setProperty('--era', e.col);
+    var en = document.querySelector('.entry'); en.classList.remove('swap'); void en.offsetWidth; en.classList.add('swap');
+    Array.prototype.forEach.call(eraBox.children, function(b, n){ b.setAttribute('aria-pressed', n === i); });
+    older.textContent = i === eras.length - 1 ? 'Back to today' : 'Go further back';
+    clearInterval(spin);
+    var to = +e.y;
+    if(reduce || from === to){ yearEl.textContent = e.y; return; }
+    var cur = from, stepv = to > from ? 1 : -1;
+    spin = setInterval(function(){ cur += stepv; yearEl.textContent = cur; if(cur === to) clearInterval(spin); }, 110);
+  }
+  older.addEventListener('click', function(){ setEra((ei + 1) % eras.length); });
+  setEra(0);
+
+  /* scroll progress */
+  var bar = $('bar'), aboutImg = $('about-img'), ticking = false;
+  function onScroll(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      var h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+      if(!reduce && aboutImg){
+        var r = aboutImg.parentNode.getBoundingClientRect();
+        if(r.bottom > 0 && r.top < innerHeight){ var off = (r.top + r.height/2 - innerHeight/2) / innerHeight; aboutImg.style.transform = 'translateY(' + (-5 - off * 4.5) + '%)'; }
+      }
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* reveal on scroll */
+  if(!reduce && 'IntersectionObserver' in window){
+    document.documentElement.classList.add('js');
+    var groups = ['.about-grid > *','.stats > div','.hall h2','.hall .lead','.door','.time h2','.dial > *','#stack h2','.creds section','.contact'];
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('on'); io.unobserve(en.target); (function(t){ setTimeout(function(){ t.classList.remove('rv','on'); t.style.removeProperty('--d'); }, 1600); })(en.target); if(en.target.querySelector && en.target.matches('.stats > div')) count(en.target.querySelector('strong')); } });
+    }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    groups.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el, n){ el.classList.add('rv'); el.style.setProperty('--d', (n * 0.09) + 's'); io.observe(el); });
+    });
+  }
+  function count(el){
+    if(!el || el.dataset.done) return; el.dataset.done = 1;
+    var to = +el.dataset.to, suf = el.dataset.suf || '', t0 = null;
+    requestAnimationFrame(function step(t){ if(!t0) t0 = t; var k = Math.min(1, (t - t0) / 1100); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + suf; if(k < 1) requestAnimationFrame(step); });
+  }
+
+  /* pointer light and photo parallax (mouse only) */
+  if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var spot = $('spot'), bob = $('bobber');
+    addEventListener('pointermove', function(e){
+      spot.style.opacity = 1; spot.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+      if(scrollY < innerHeight){ bob.style.transform = 'translate(' + ((e.clientX / innerWidth - .5) * -16) + 'px,' + ((e.clientY / innerHeight - .5) * -10) + 'px)'; }
+    }, {passive:true});
+    setTimeout(function(){ bob.style.animation = 'none'; bob.style.transition = 'transform .5s ease-out'; }, 1400);
+  }
+
+  /* hero sky: drifting linked points */
+  (function(){
+    var cv = $('sky'); if(reduce || !cv.getContext) return;
+    var ctx = cv.getContext('2d'), W, H, pts = [], dpr, live = true, cols = ['79,140,255','139,92,246','18,214,160','231,184,75'];
+    function size(){
+      dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      var n = Math.max(18, Math.min(70, Math.round(W * H / 16000))); pts = [];
+      for(var i = 0; i < n; i++) pts.push({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35, c:cols[i % 4]});
+    }
+    function frame(){
+      if(live){
+        ctx.clearRect(0,0,W,H);
+        for(var i = 0; i < pts.length; i++){
+          var p = pts[i]; p.x += p.vx; p.y += p.vy;
+          if(p.x < 0 || p.x > W) p.vx *= -1; if(p.y < 0 || p.y > H) p.vy *= -1;
+          for(var j = i + 1; j < pts.length; j++){
+            var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = dx*dx + dy*dy;
+            if(d < 16000){ ctx.strokeStyle = 'rgba(' + p.c + ',' + (0.22 * (1 - d / 16000)) + ')'; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke(); }
+          }
+          ctx.fillStyle = 'rgba(' + p.c + ',.85)'; ctx.beginPath(); ctx.arc(p.x,p.y,1.8,0,6.283); ctx.fill();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+    size(); frame();
+    var rt; addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(size, 150); });
+    if('IntersectionObserver' in window) new IntersectionObserver(function(e){ live = e[0].isIntersecting && !document.hidden; }).observe(cv);
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) live = false; else live = cv.getBoundingClientRect().bottom > 0; });
+  })();
+
+  /* stack rows */
+  var A = 'var(--ai)', V = 'var(--ai-2)', C = 'var(--chain)', G = 'var(--gold)';
+  var row1 = [['Python',A],['Solidity',C],['TypeScript',V],['Next.js 14',V],['OpenAI',A],['Anthropic Claude',A],['Google Gemini',A],['Ethers.js',C],['Hardhat',C],['ChromaDB',A],['FAISS',A],['React',V]];
+  var row2 = [['Tendermint',C],['Solana Web3.js',C],['Ethereum / EVM',C],['n8n',G],['Odoo 18',G],['Supabase',V],['PostgreSQL',V],['Docker',V],['Linux VPS',V],['Node.js',V],['Tailwind CSS',V],['Vercel',V],['Streamlit',A]];
+  function fill(id, items){
+    var t = $(id);
+    [0,1].forEach(function(pass){ items.forEach(function(it){
+      var s = document.createElement('span'); s.className = 'badge'; s.textContent = it[0]; s.style.setProperty('--c', it[1]);
+      if(pass) s.setAttribute('aria-hidden','true'); t.appendChild(s);
+    }); });
+  }
+  fill('row1', row1); fill('row2', row2);
+
+  /* copy email */
+  var copy = $('copy');
+  copy.addEventListener('click', function(){
+    var done = function(ok){ copy.textContent = ok ? 'Copied' : 'Select the address to copy'; setTimeout(function(){ copy.textContent = 'Copy email'; }, 2200); };
+    try{ navigator.clipboard.writeText('noumankhalid0143@gmail.com').then(function(){ done(true); }, function(){ done(false); }); }catch(e){ done(false); }
+  });
+})();
+</script>
+</body>
+</html>
